@@ -791,7 +791,7 @@
             quantity: qty,
             type: 'product',
             variation_id: CONFIG.UNIT_VARIATION_ID,
-            properties: [{ name: '訂製規格', value: spec, type: 'text' }],
+            properties: { '訂製規格': spec },
             blacklisted_delivery_option_ids: [],
             triggering_item_id: null
           },
