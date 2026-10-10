@@ -15,7 +15,27 @@
     MERCHANT_ID: '64e6b7e0812b660045e3a51c',
     UNIT_PRODUCT_ID: '6ac60462ad32cf0001e99d12',
     UNIT_VARIATION_ID: '6ac604631b6195000101a560',
-    UNIT_PRICE_HKD: 1
+    UNIT_PRICE_HKD: 1,
+    /* 重量登記商品（HK$0.1，規格=公斤數）：訂單總重=該規格後台設定的重量，
+       運費依重量計算。key=預估重量kg（整數），value=variation_id */
+    WEIGHT_PRODUCT_ID: '6aca570ded73410001cd0617',
+    WEIGHT_VARIATIONS: {
+      1: '6aca570e6466400001c8de1d', 2: '6aca570e6466400001c8de1e',
+      3: '6aca570e6466400001c8de1f', 4: '6aca570e6466400001c8de20',
+      5: '6aca570e6466400001c8de21', 6: '6aca570e6466400001c8de22',
+      7: '6aca570e6466400001c8de23', 8: '6aca570e6466400001c8de24',
+      9: '6aca570e6466400001c8de25', 10: '6aca570e6466400001c8de26',
+      11: '6aca570e6466400001c8de27', 12: '6aca570e6466400001c8de28',
+      13: '6aca570e6466400001c8de29', 14: '6aca570e6466400001c8de2a',
+      15: '6aca570e6466400001c8de2b', 16: '6aca570e6466400001c8de2c',
+      17: '6aca570e6466400001c8de2d', 18: '6aca570e6466400001c8de2e',
+      19: '6aca570e6466400001c8de2f', 20: '6aca570e6466400001c8de30',
+      21: '6aca570e6466400001c8de31', 22: '6aca570e6466400001c8de32',
+      23: '6aca570e6466400001c8de33', 24: '6aca570e6466400001c8de34',
+      25: '6aca570e6466400001c8de35', 26: '6aca570e6466400001c8de36',
+      27: '6aca570e6466400001c8de37', 28: '6aca570e6466400001c8de38',
+      29: '6aca570e6466400001c8de39', 30: '6aca570e6466400001c8de3a'
+    }
   };
   const ON_STORE = window.location.hostname === CONFIG.STORE_HOST;
 
@@ -666,7 +686,8 @@
       const units = [];
       items.forEach(function (it) {
         if (!it) return;
-        if (it.variation_id === CONFIG.UNIT_VARIATION_ID || it.product_id === CONFIG.UNIT_PRODUCT_ID) {
+        if (it.variation_id === CONFIG.UNIT_VARIATION_ID || it.product_id === CONFIG.UNIT_PRODUCT_ID ||
+            (CONFIG.WEIGHT_PRODUCT_ID && it.product_id === CONFIG.WEIGHT_PRODUCT_ID)) {
           units.push(it);
         } else {
           otherQty += Number(it.quantity) || 0;
@@ -782,6 +803,28 @@
           value: payload.hkd
         })
       });
+    }).then(function () {
+      /* 重量登記行：qty=1、規格=預估重量（整數kg，1–30 封頂），
+         運費依此規格後台設定的重量計算；失敗不影響主流程（靜默略過） */
+      const wKg = Math.min(30, Math.max(1, Math.round(Number(payload.weight) || 0)));
+      const wVid = CONFIG.WEIGHT_VARIATIONS[wKg];
+      if (!CONFIG.WEIGHT_PRODUCT_ID || !wVid) return;
+      return cartRequest('/cart/items', {
+        method: 'POST',
+        body: JSON.stringify({
+          item: {
+            product_id: CONFIG.WEIGHT_PRODUCT_ID,
+            quantity: 1,
+            type: 'product',
+            variation_id: wVid,
+            properties: {},
+            blacklisted_delivery_option_ids: [],
+            triggering_item_id: null
+          },
+          cart_options: { skip_calculate_order: true, is_cart_page: false },
+          value: 0.1
+        })
+      }).catch(function (e) { console.warn('[aowo] weight line failed:', e); });
     }).then(function () {
       btn.disabled = false;
       /* 先寫結帳草稿（訂單備註會在 /checkout 自動帶出），再顯示確認面板 */
