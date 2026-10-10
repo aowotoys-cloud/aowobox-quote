@@ -659,6 +659,8 @@
      回傳購物車中「其他商品」的件數（數量加總）。 */
   function resetUnitItems() {
     return cartRequest('/cart', { method: 'GET' }).then(function (data) {
+      const d = data && data.data ? data.data : data;
+      const cartId = (d && d.id) || '';
       const items = cartItemsOf(data);
       let otherQty = 0;
       const units = [];
@@ -679,8 +681,8 @@
             body: JSON.stringify({ item: { quantity: 0 }, value: 0 })
           }).catch(function () {});
         });
-      }, Promise.resolve()).then(function () { return otherQty; });
-    }).catch(function () { return 0; });
+      }, Promise.resolve()).then(function () { return { otherQty: otherQty, cartId: cartId }; });
+    }).catch(function () { return { otherQty: 0, cartId: '' }; });
   }
   function copyText(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -763,10 +765,33 @@
   if (/\/checkout/.test(location.pathname)) {
     initSpecAutofill();
   }
-  /* 結帳 URL：規格同時帶入「訂單備註」(orderRemarks) 與「訂製規格」自訂欄位（後台開啟的 order custom field） */
-  function checkoutUrl(spec) {
-    const q = encodeURIComponent(spec);
-    return '/checkout?orderRemarks=' + q + '&orderCustomFields.scmKey_6ac86e1123b66dcb1a5a223c=' + q;
+  /* 結帳跳轉前置：把規格寫入結帳草稿（POST /api/orders/session_data）。
+     已實測：加購後呼叫即可寫入，之後導向 /checkout 時 SSR 會直接把值渲染進
+     「訂單備註」與「訂製規格」欄位；每次報價都會覆寫舊草稿。
+     fire-and-forget：失敗只印 console，不影響加購流程。 */
+  function saveSessionData(cartId, spec) {
+    if (!cartId || !spec) return;
+    const body = {
+      cart_id: cartId,
+      deliveryCountry: 'HK',
+      orderRemarks: spec
+    };
+    body[SPEC_FIELD_NAME] = spec;
+    fetch('/api/orders/session_data', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': csrfToken()
+      },
+      body: JSON.stringify(body)
+    }).then(function (resp) {
+      console.log('[aowo] checkout draft saved, session_data status=' + resp.status);
+    }).catch(function (e) {
+      console.warn('[aowo] session_data failed:', e);
+    });
   }
   function checkout() {
     const payload = JSON.parse(document.getElementById('aowobox-tb-cta').dataset.payload || 'null');
@@ -784,8 +809,10 @@
     btn.disabled = true;
     document.getElementById('aowobox-tb-added').classList.add('tb-hidden');
     let otherQty = 0;
-    resetUnitItems().then(function (n) {
-      otherQty = n;
+    let cartId = '';
+    resetUnitItems().then(function (r) {
+      otherQty = r.otherQty;
+      cartId = r.cartId;
       /* properties：若商品後台有定義同名「訂製規格」文字欄位，規格會掛在品項上；
          未定義時商店會忽略此欄位（不影響加購）。 */
       return cartRequest('/cart/items', {
@@ -806,7 +833,9 @@
       });
     }).then(function () {
       btn.disabled = false;
-      /* 把規格存入 localStorage，結帳頁會自動填入「訂製規格」欄位 */
+      /* 先寫結帳草稿（訂單備註＋訂製規格欄位會在 /checkout 自動帶出），再顯示確認面板 */
+      saveSessionData(cartId, spec);
+      /* 把規格存入 localStorage，結帳頁會自動填入「訂製規格」欄位（備援） */
       saveSpecForCheckout(spec);
       showAddedPanel(spec, otherQty);
     }).catch(function () {
@@ -862,10 +891,10 @@
   document.getElementById('aowobox-tb-gocart').addEventListener('click', function () {
     window.location.href = '/cart';
   });
-  /* 結帳跳轉：把規格用 URL 參數帶入結帳頁（SHOPLINE 結帳 SPA 支援 query 預填，
-     已實測：orderRemarks=訂單備註、orderCustomFields.scmKey_{field_id}=自訂欄位「訂製規格」） */
+  /* 結帳跳轉：規格已在加購成功時寫入結帳草稿（session_data），
+     /checkout 載入時 SSR 會自動帶出「訂單備註」與「訂製規格」欄位 */
   document.getElementById('aowobox-tb-gocheckout').addEventListener('click', function () {
-    window.location.href = lastSpec ? checkoutUrl(lastSpec) : '/checkout';
+    window.location.href = '/checkout';
   });
   function bindCopy(btnId, getText) {
     document.getElementById(btnId).addEventListener('click', function () {
