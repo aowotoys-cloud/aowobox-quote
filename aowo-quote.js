@@ -717,57 +717,9 @@
     document.getElementById('aowobox-tb-added').classList.remove('tb-hidden');
   }
 
-  /* ---------- 自動填寫結帳頁「訂製規格」欄位 ---------- */
-  const SPEC_LS_KEY = 'aowo_pending_spec';
-  const SPEC_FIELD_NAME = 'orderCustomFields.scmKey_6ac86e1123b66dcb1a5a223c';
-
-  /* 報價頁：把規格存入 localStorage，結帳頁會自動讀取填入 */
-  function saveSpecForCheckout(spec) {
-    try {
-      localStorage.setItem(SPEC_LS_KEY, spec);
-      console.log('[aowo] spec saved to localStorage, length=' + spec.length);
-      /* 驗證是否寫入成功 */
-      const readBack = localStorage.getItem(SPEC_LS_KEY);
-      console.log('[aowo] localStorage read back:', readBack ? 'OK, length=' + readBack.length : 'FAILED, null');
-    } catch (e) {
-      console.error('[aowo] localStorage error:', e);
-      /* 備用：存入 cookie */
-      document.cookie = SPEC_LS_KEY + '=' + encodeURIComponent(spec) + '; path=/; max-age=3600';
-      console.log('[aowo] fallback to cookie');
-    }
-  }
-
-  /* 結帳頁：輪詢等待欄位出現，用 React native setter 填入（React controlled component 需用原型 setter 才會更新 state） */
-  function initSpecAutofill() {
-    if (!/\/checkout/.test(location.pathname)) return;
-    let spec = '';
-    try { spec = localStorage.getItem(SPEC_LS_KEY) || ''; } catch (e) { return; }
-    if (!spec) return;
-    let tries = 0;
-    const timer = setInterval(function () {
-      const el = document.querySelector('input[name="' + SPEC_FIELD_NAME + '"]') ||
-                 document.querySelector('[data-e2e-id*="custom_field"]');
-      tries++;
-      if (el) {
-        clearInterval(timer);
-        const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-        nativeSetter.call(el, spec);
-        el.dispatchEvent(new Event('input', { bubbles: true }));
-        el.dispatchEvent(new Event('change', { bubbles: true }));
-        el.dispatchEvent(new Event('focus', { bubbles: true }));
-        el.dispatchEvent(new Event('blur', { bubbles: true }));
-      }
-      if (tries > 50) clearInterval(timer);
-    }, 300);
-  }
-
-  /* 頁面載入時：若是結帳頁，自動填入待寫入的規格 */
-  if (/\/checkout/.test(location.pathname)) {
-    initSpecAutofill();
-  }
   /* 結帳跳轉前置：把規格寫入結帳草稿（POST /api/orders/session_data）。
      已實測：加購後呼叫即可寫入，之後導向 /checkout 時 SSR 會直接把值渲染進
-     「訂單備註」與「訂製規格」欄位；每次報價都會覆寫舊草稿。
+     「訂單備註」欄位；每次報價都會覆寫舊草稿。
      fire-and-forget：失敗只印 console，不影響加購流程。 */
   function saveSessionData(cartId, spec) {
     if (!cartId || !spec) return;
@@ -776,7 +728,6 @@
       deliveryCountry: 'HK',
       orderRemarks: spec
     };
-    body[SPEC_FIELD_NAME] = spec;
     fetch('/api/orders/session_data', {
       method: 'POST',
       credentials: 'same-origin',
@@ -833,10 +784,8 @@
       });
     }).then(function () {
       btn.disabled = false;
-      /* 先寫結帳草稿（訂單備註＋訂製規格欄位會在 /checkout 自動帶出），再顯示確認面板 */
+      /* 先寫結帳草稿（訂單備註會在 /checkout 自動帶出），再顯示確認面板 */
       saveSessionData(cartId, spec);
-      /* 把規格存入 localStorage，結帳頁會自動填入「訂製規格」欄位（備援） */
-      saveSpecForCheckout(spec);
       showAddedPanel(spec, otherQty);
     }).catch(function () {
       const noteBox = document.getElementById('aowobox-tb-previewnote');
