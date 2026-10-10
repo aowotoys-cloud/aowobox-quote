@@ -763,6 +763,11 @@
   if (/\/checkout/.test(location.pathname)) {
     initSpecAutofill();
   }
+  /* 結帳 URL：規格同時帶入「訂單備註」(orderRemarks) 與「訂製規格」自訂欄位（後台開啟的 order custom field） */
+  function checkoutUrl(spec) {
+    const q = encodeURIComponent(spec);
+    return '/checkout?orderRemarks=' + q + '&orderCustomFields.scmKey_6ac86e1123b66dcb1a5a223c=' + q;
+  }
   function checkout() {
     const payload = JSON.parse(document.getElementById('aowobox-tb-cta').dataset.payload || 'null');
     if (!payload) return;
@@ -857,8 +862,10 @@
   document.getElementById('aowobox-tb-gocart').addEventListener('click', function () {
     window.location.href = '/cart';
   });
+  /* 結帳跳轉：把規格用 URL 參數帶入結帳頁（SHOPLINE 結帳 SPA 支援 query 預填，
+     已實測：orderRemarks=訂單備註、orderCustomFields.scmKey_{field_id}=自訂欄位「訂製規格」） */
   document.getElementById('aowobox-tb-gocheckout').addEventListener('click', function () {
-    window.location.href = '/checkout';
+    window.location.href = lastSpec ? checkoutUrl(lastSpec) : '/checkout';
   });
   function bindCopy(btnId, getText) {
     document.getElementById(btnId).addEventListener('click', function () {
@@ -879,5 +886,3 @@
 
   applyLang();
 })();
-
-
