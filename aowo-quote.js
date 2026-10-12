@@ -16,8 +16,10 @@
     UNIT_PRODUCT_ID: '6ac60462ad32cf0001e99d12',
     UNIT_VARIATION_ID: '6ac604631b6195000101a560',
     UNIT_PRICE_HKD: 1,
-    /* 重量登記商品（HK$0.1，規格=公斤數）：訂單總重=該規格後台設定的重量，
-       運費依重量計算。key=預估重量kg（整數），value=variation_id */
+    /* 重量登記商品（HK$1，規格=公斤數）：訂單總重=該規格後台設定的重量，
+       運費依重量計算。key=預估重量kg（整數），value=variation_id。
+       加購時計價單位數量=報價-1，重量登記=1元，合計=報價金額。 */
+    WEIGHT_PRICE_HKD: 1,
     WEIGHT_PRODUCT_ID: '6aca570ded73410001cd0617',
     WEIGHT_VARIATIONS: {
       1: '6aca570e6466400001c8de1d', 2: '6aca570e6466400001c8de1e',
@@ -768,7 +770,7 @@
   function checkout() {
     const payload = JSON.parse(document.getElementById('aowobox-tb-cta').dataset.payload || 'null');
     if (!payload) return;
-    const qty = Math.max(1, Math.round(payload.hkd / CONFIG.UNIT_PRICE_HKD));
+    const qty = Math.max(1, Math.round(payload.hkd) - CONFIG.WEIGHT_PRICE_HKD);
     const spec = buildOrderNote(payload);
     lastSpec = spec;
     if (!ON_STORE) {
@@ -800,7 +802,7 @@
             triggering_item_id: null
           },
           cart_options: { skip_calculate_order: true, is_cart_page: false },
-          value: payload.hkd
+          value: payload.hkd - CONFIG.WEIGHT_PRICE_HKD
         })
       });
     }).then(function () {
@@ -822,7 +824,7 @@
             triggering_item_id: null
           },
           cart_options: { skip_calculate_order: true, is_cart_page: false },
-          value: 0.1
+          value: CONFIG.WEIGHT_PRICE_HKD
         })
       }).catch(function (e) { console.warn('[aowo] weight line failed:', e); });
     }).then(function () {
