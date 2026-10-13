@@ -726,6 +726,7 @@
       document.getElementById('aowobox-tb-amount').textContent = '—';
       document.getElementById('aowobox-tb-inner').textContent = '—';
       document.getElementById('aowobox-tb-outer').textContent = '—';
+      document.getElementById('aowobox-tb-step3outer').textContent = '—';
       document.getElementById('aowobox-tb-weight').textContent = '—';
       cta.disabled = true;
       return;
@@ -737,7 +738,9 @@
     const q = priceOf(W, D, H, code, is12v);
     document.getElementById('aowobox-tb-amount').textContent = q.hkd.toLocaleString('en-US');
     document.getElementById('aowobox-tb-inner').textContent = W + '×' + D + '×' + H + ' cm';
-    document.getElementById('aowobox-tb-outer').textContent = fmtOuter(outerSize(W, D, H, code, is12v));
+    const outerTxt = fmtOuter(outerSize(W, D, H, code, is12v));
+    document.getElementById('aowobox-tb-outer').textContent = outerTxt;
+    document.getElementById('aowobox-tb-step3outer').textContent = outerTxt;
     document.getElementById('aowobox-tb-weight').textContent = q.weight + ' kg';
     if (q.weight > 60) {
       hint.textContent = t('errWeight');
