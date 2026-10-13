@@ -104,7 +104,7 @@
       step3Title: '選擇電源',
       step4Title: '選擇燈配置',
       cfgBottom: '底燈', cfgBottomDesc: '底部 1 條 LED 燈帶',
-      cfgDual: '頂底燈', cfgDualDesc: '頂部 + 底部共 2 條 LED 燈帶',
+      cfgDual: '頂底燈', cfgDualDesc: '頂部 2 條，底部 1 條 LED 燈帶',
       baseColor: '底板顏色', lightPanelColor: '燈板顏色',
       colBlack: '黑色', colWhite: '白色', colClear: '透明', colDefault: '（預設）',
       lightColor: '燈光顏色', lcBottom: '底燈顏色', lcTop: '頂燈顏色',
@@ -113,7 +113,9 @@
       priceExclShip: '展示盒價格（不含運）',
       innerSize: '內尺寸',
       outerSize: '外尺寸約', estWeight: '預估重量',
-      shipNote: '報價為展示盒價格，未含運費；運費將於 SHOPLINE 結帳時依您的收貨地址自動計算。',
+      shipNote1: '報價為展示盒價格，未含運費；運費將於 SHOPLINE 結帳時依您的收貨地址自動計算。',
+      shipNote2: '訂單付款確認後，生產時間約7-10個工作天，完成後寄出時會EMAIL通知發貨。',
+      shipNote3: '客製尺寸產品，無法無理由退貨退款。',
       cta: '確認價格無誤，加入購物車並前往付款',
       copySpecs: '複製訂製規格',
       contactTitle: '更多客製需求，聯絡我們',
@@ -127,6 +129,8 @@
       previewNote: '預覽模式：此頁面不在 SHOPLINE 商店網域內，無法直接加購。嵌入商店後，將自動把「計價單位」以報價金額作為數量加入購物車並前往結帳。',
       checkoutError: '加入購物車失敗，請稍後再試；或按下方「複製訂製規格」聯絡客服下單。',
       errDims: '請輸入有效的寬、深、高（1–100 cm 的整數），單邊尺寸不可超過 100 cm。',
+      errWeight: '重量超過 60 kg，無法下單。請縮小尺寸或聯絡客服。',
+      noticeTitle: '注意事項',
       footer: '定制商品於付款後進入製作，非運損或瑕疵不適用退換貨；所輸入為內尺寸，成品外尺寸會因板厚與燈光配置而增加。'
     },
     zhCN: {
@@ -145,7 +149,7 @@
       step3Title: '选择电源',
       step4Title: '选择灯配置',
       cfgBottom: '底灯', cfgBottomDesc: '底部 1 条 LED 灯带',
-      cfgDual: '顶底灯', cfgDualDesc: '顶部 + 底部共 2 条 LED 灯带',
+      cfgDual: '顶底灯', cfgDualDesc: '顶部 2 条，底部 1 条 LED 灯带',
       baseColor: '底板颜色', lightPanelColor: '灯板颜色',
       colBlack: '黑色', colWhite: '白色', colClear: '透明', colDefault: '（默认）',
       lightColor: '灯光颜色', lcBottom: '底灯颜色', lcTop: '顶灯颜色',
@@ -154,7 +158,9 @@
       priceExclShip: '展示盒价格（不含运费）',
       innerSize: '内尺寸',
       outerSize: '外尺寸约', estWeight: '预估重量',
-      shipNote: '报价为展示盒价格，不含运费；运费将于 SHOPLINE 结账时依您的收货地址自动计算。',
+      shipNote1: '报价为展示盒价格，不含运费；运费将于 SHOPLINE 结账时依您的收货地址自动计算。',
+      shipNote2: '订单付款确认后，生产时间约7-10个工作日，完成后寄出时会EMAIL通知发货。',
+      shipNote3: '客制尺寸产品，无法无理由退货退款。',
       cta: '确认价格无误，加入购物车并前往付款',
       copySpecs: '复制定制规格',
       contactTitle: '更多客制需求，联系我们',
@@ -168,6 +174,8 @@
       previewNote: '预览模式：此页面不在 SHOPLINE 商店域名内，无法直接加购。嵌入商店后，将自动把「计价单位」以报价金额作为数量加入购物车并前往结账。',
       checkoutError: '加入购物车失败，请稍后再试；或按下方「复制定制规格」联系客服下单。',
       errDims: '请输入有效的宽、深、高（1–100 cm 的整数），单边尺寸不可超过 100 cm。',
+      errWeight: '重量超过 60 kg，无法下单。请缩小尺寸或联系客服。',
+      noticeTitle: '注意事项',
       footer: '定制商品于付款后进入制作，非运损或瑕疵不适用退换货；所输入为内尺寸，成品外尺寸会因板厚与灯光配置而增加。'
     },
     en: {
@@ -186,7 +194,7 @@
       step3Title: 'Power supply',
       step4Title: 'Lighting layout',
       cfgBottom: 'Bottom light', cfgBottomDesc: '1 LED strip at the base',
-      cfgDual: 'Top + bottom lights', cfgDualDesc: '2 LED strips, top and base',
+      cfgDual: 'Top + bottom lights', cfgDualDesc: '2 LED strips on top, 1 at the base',
       baseColor: 'Base panel color', lightPanelColor: 'Light panel color',
       colBlack: 'Black', colWhite: 'White', colClear: 'Clear', colDefault: ' (default)',
       lightColor: 'Light colors', lcBottom: 'Bottom light color', lcTop: 'Top light color',
@@ -195,7 +203,9 @@
       priceExclShip: 'case price, shipping excluded',
       innerSize: 'Inner size',
       outerSize: 'Outer size approx.', estWeight: 'Est. weight',
-      shipNote: 'The quote covers the display case only; shipping is calculated automatically by SHOPLINE at checkout based on your delivery address.',
+      shipNote1: 'The quote covers the display case only; shipping is calculated automatically by SHOPLINE at checkout based on your delivery address.',
+      shipNote2: 'After payment confirmation, production takes about 7-10 business days. You will be notified by email when your order ships.',
+      shipNote3: 'Custom-size products cannot be returned or refunded without reason.',
       cta: 'Confirm price, add to cart and go to payment',
       copySpecs: 'Copy specs',
       contactTitle: 'Need something more custom? Contact us',
@@ -209,17 +219,72 @@
       previewNote: 'PREVIEW MODE: this page is not on the SHOPLINE store domain, so add-to-cart is disabled. Once embedded in the store, the pricing unit is added with the quoted amount as quantity and checkout opens automatically.',
       checkoutError: 'Failed to add to cart. Please try again, or use "Copy specs" below and contact us to place the order.',
       errDims: 'Please enter valid width, depth and height (integers 1–100 cm, max 100 cm per side).',
+      errWeight: 'Weight exceeds 60 kg. Cannot place order. Please reduce dimensions or contact us.',
+      noticeTitle: 'Notes',
       footer: 'Custom products go into production after payment and cannot be returned unless damaged or defective. Inputs are inner dimensions; the finished outer size is larger due to panel thickness and lighting.'
+    },
+    ja: {
+      bannerTitle: '高透明度ディスプレイケース · オンラインカスタム見積',
+      bannerSub: 'サイズを入力 → 価格を確認 → カートに入れて決済へ',
+      step: 'STEP', quote: '見積',
+      step1Title: '構成を選択',
+      cfgNone: 'ライトなし', cfgNoneDesc: '照明なし、ご自身で照明を用意',
+      cfgLight: 'ライトあり', cfgLightDesc: 'LED ストリップ、USB または DC 電源',
+      power5vDesc: 'USB 給電、標準ベースサイズのみ対応',
+      power12vDesc: 'アダプター給電、サイズ自由カスタム、バックライト追加可',
+      step2Title: '内寸を入力（cm）',
+      dimW: '幅 W', dimD: '奥行 D', dimH: '高さ H',
+      usbHint: '5V USB はベースサイズ 15×15、20×20、25×20、25×25、30×30 cm のみ対応',
+      usbHint12vOnly: 'このベースサイズは 5V USB 非対応 — 12V DC のみ。標準ベースサイズで 5V USB が選択可能。',
+      step3Title: '電源を選択',
+      step4Title: 'ライト配置',
+      cfgBottom: '底面ライト', cfgBottomDesc: 'ベースに LED ストリップ 1 本',
+      cfgDual: '頂面＋底面ライト', cfgDualDesc: '頂部 2 本、底部 1 本の LED ストリップ',
+      baseColor: 'ベースパネル色', lightPanelColor: 'ライトパネル色',
+      colBlack: 'ブラック', colWhite: 'ホワイト', colClear: 'クリア', colDefault: '（デフォルト）',
+      lightColor: 'ライトカラー', lcBottom: '底面ライト色', lcTop: '頂面ライト色',
+      lcOuter: '外側', lcInner: '内側', lcB: '底', lcT: '頂',
+      previewTitle: 'イメージ',
+      priceExclShip: 'ケース価格（送料別）',
+      innerSize: '内寸',
+      outerSize: '外寸約', estWeight: '推定重量',
+      shipNote1: '見積はディスプレイケースのみの価格です。送料はチェックアウト時に配送先住所に基づいて自動計算されます。',
+      shipNote2: 'お支払い確認後、生産期間は約7-10営業日です。発送時にメールでお知らせします。',
+      shipNote3: 'カスタムサイズ製品は、理由なく返品・返金できません。',
+      cta: '価格を確認、カートに入れて決済へ',
+      copySpecs: '仕様をコピー',
+      contactTitle: 'その他のカスタムご要望はこちら',
+      copied: '仕様をコピーしました。',
+      addedTitle: 'カートに追加しました ✓ 仕様をご確認ください',
+      otherWarn: '注意：カートには他に {n} 点の商品があります。チェックアウト時に一括で請求されます。',
+      addedHint: 'チェックアウト前にカート内の商品リストと合計金額をご確認ください。「仕様をコピー」で仕様を保存し、チェックアウトページの注文メモに貼り付けるか、LINE / WhatsApp でお送りください。',
+      goCart: 'カート内容を確認',
+      goCheckout: 'チェックアウトへ進む',
+      copySpec2: '仕様をコピー',
+      previewNote: 'プレビューモード：このページは SHOPLINE ストアドメイン内ではないため、カートに追加できません。ストアに埋め込むと、価格単位が数量としてカートに追加され、チェックアウトが自動的に開きます。',
+      checkoutError: 'カートへの追加に失敗しました。もう一度お試しください。または「仕様をコピー」でカスタマーサービスにお問い合わせください。',
+      errDims: '有効な幅、奥行き、高さを入力してください（1–100 cm の整数、各辺 100 cm 以下）。',
+      errWeight: '重量が 60 kg を超えています。注文できません。サイズを小さくするか、カスタマーサービスにお問い合わせください。',
+      noticeTitle: '注意事項',
+      footer: 'カスタム製品はお支払い後に生産が開始され、損傷や欠陥がない限り返品できません。入力は内寸です。完成品の外寸はパネル厚と照明構成により大きくなります。'
     }
   };
-  let lang = 'zhTW';
+  /* 依瀏覽器語言自動切換預設語言 */
+  function detectLang() {
+    const nav = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    if (nav.startsWith('ja')) return 'ja';
+    if (nav === 'zh-cn' || nav === 'zh-hans' || nav === 'zh-sg') return 'zhCN';
+    if (nav.startsWith('en')) return 'en';
+    return 'zhTW';
+  }
+  let lang = detectLang();
   const t = (k) => (I18N[lang] && I18N[lang][k]) || I18N.zhTW[k];
 
   function applyLang() {
     document.querySelectorAll('#aowobox-tb-root [data-i18n]').forEach((el) => {
       el.textContent = t(el.getAttribute('data-i18n'));
     });
-    document.documentElement.lang = lang === 'en' ? 'en' : (lang === 'zhCN' ? 'zh-CN' : 'zh-Hant');
+    document.documentElement.lang = lang === 'en' ? 'en' : (lang === 'zhCN' ? 'zh-CN' : (lang === 'ja' ? 'ja' : 'zh-Hant'));
     document.querySelectorAll('#aowobox-tb-lang button').forEach((b) => {
       b.classList.toggle('on', b.dataset.lang === lang);
     });
@@ -591,9 +656,15 @@
       l.classList.toggle('on', l.dataset.val === power);
     });
 
-    // 燈配置卡片：僅有燈時顯示（5V / 12V 均可選底燈或頂底燈）
+    // 燈配置卡片：僅有燈時顯示（5V / 12V 均可選底燈或頂底燈）；預設頂底燈
     const lightCard = document.getElementById('aowobox-tb-lightcard');
     lightCard.classList.toggle('tb-hidden', cfgPick !== 'light');
+    if (cfgPick === 'light') {
+      const dualRadio = document.querySelector('#aowobox-tb-lightcfg input[value="dual"]');
+      if (!document.querySelector('#aowobox-tb-lightcfg input:checked')) {
+        dualRadio.checked = true;
+      }
+    }
     const lightCfg = getLightCfg();
     document.querySelectorAll('#aowobox-tb-lightcfg label').forEach((l) => {
       l.classList.toggle('on', l.dataset.val === lightCfg);
@@ -668,6 +739,13 @@
     document.getElementById('aowobox-tb-inner').textContent = W + '×' + D + '×' + H + ' cm';
     document.getElementById('aowobox-tb-outer').textContent = fmtOuter(outerSize(W, D, H, code, is12v));
     document.getElementById('aowobox-tb-weight').textContent = q.weight + ' kg';
+    if (q.weight > 60) {
+      hint.textContent = t('errWeight');
+      hint.classList.remove('warn');
+      hint.classList.add('err');
+      cta.disabled = true;
+      return;
+    }
     cta.disabled = false;
     drawPreview(W, D, H, cfgPick, lightCfg, color);
     cta.dataset.payload = JSON.stringify({
