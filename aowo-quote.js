@@ -829,9 +829,9 @@
       }).catch(function (e) { console.warn('[aowo] weight line failed:', e); });
     }).then(function () {
       btn.disabled = false;
-      /* 先寫結帳草稿（訂單備註會在 /checkout 自動帶出），再顯示確認面板 */
+      /* 寫結帳草稿（訂單備註會在 /checkout 自動帶出），然後直接導向購物車 */
       saveSessionData(cartId, spec);
-      showAddedPanel(spec, otherQty);
+      window.location.href = '/cart';
     }).catch(function () {
       const noteBox = document.getElementById('aowobox-tb-previewnote');
       noteBox.textContent = t('checkoutError');
