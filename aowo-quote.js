@@ -280,6 +280,13 @@
   let lang = detectLang();
   const t = (k) => (I18N[lang] && I18N[lang][k]) || I18N.zhTW[k];
 
+  const BANNER_IMG = {
+    zhTW: 'https://img.shoplineapp.com/media/image_clips/6acdd34a746708946c35a6f6/original.jpeg?1791873865=&owner_id=64e6b7e0812b660045e3a51c',
+    zhCN: 'https://img.shoplineapp.com/media/image_clips/6acdd34a5bd4870fb58cf75c/original.jpeg?1791873865=&owner_id=64e6b7e0812b660045e3a51c',
+    en:   'https://img.shoplineapp.com/media/image_clips/6acdd34a56c157c4265924e1/original.jpeg?1791873865=&owner_id=64e6b7e0812b660045e3a51c',
+    ja:   'https://img.shoplineapp.com/media/image_clips/6acdd34a07550c144b144482/original.jpeg?1791873865=&owner_id=64e6b7e0812b660045e3a51c'
+  };
+
   function applyLang() {
     document.querySelectorAll('#aowobox-tb-root [data-i18n]').forEach((el) => {
       el.textContent = t(el.getAttribute('data-i18n'));
@@ -288,6 +295,8 @@
     document.querySelectorAll('#aowobox-tb-lang button').forEach((b) => {
       b.classList.toggle('on', b.dataset.lang === lang);
     });
+    var bi = document.getElementById('aowobox-tb-banner-img');
+    if (bi && BANNER_IMG[lang]) bi.src = BANNER_IMG[lang];
     renderLightGrids();
     refresh();
   }
