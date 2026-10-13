@@ -20,23 +20,68 @@
        運費依重量計算。key=預估重量kg（整數），value=variation_id。
        加購時計價單位數量=報價-1，重量登記=1元，合計=報價金額。 */
     WEIGHT_PRICE_HKD: 1,
-    WEIGHT_PRODUCT_ID: '6aca570ded73410001cd0617',
+    WEIGHT_PRODUCT_ID: '6acd9894e62a030001f0f804',
     WEIGHT_VARIATIONS: {
-      1: '6aca570e6466400001c8de1d', 2: '6aca570e6466400001c8de1e',
-      3: '6aca570e6466400001c8de1f', 4: '6aca570e6466400001c8de20',
-      5: '6aca570e6466400001c8de21', 6: '6aca570e6466400001c8de22',
-      7: '6aca570e6466400001c8de23', 8: '6aca570e6466400001c8de24',
-      9: '6aca570e6466400001c8de25', 10: '6aca570e6466400001c8de26',
-      11: '6aca570e6466400001c8de27', 12: '6aca570e6466400001c8de28',
-      13: '6aca570e6466400001c8de29', 14: '6aca570e6466400001c8de2a',
-      15: '6aca570e6466400001c8de2b', 16: '6aca570e6466400001c8de2c',
-      17: '6aca570e6466400001c8de2d', 18: '6aca570e6466400001c8de2e',
-      19: '6aca570e6466400001c8de2f', 20: '6aca570e6466400001c8de30',
-      21: '6aca570e6466400001c8de31', 22: '6aca570e6466400001c8de32',
-      23: '6aca570e6466400001c8de33', 24: '6aca570e6466400001c8de34',
-      25: '6aca570e6466400001c8de35', 26: '6aca570e6466400001c8de36',
-      27: '6aca570e6466400001c8de37', 28: '6aca570e6466400001c8de38',
-      29: '6aca570e6466400001c8de39', 30: '6aca570e6466400001c8de3a'
+      1: '6acd98942bce0800013a054c',
+      2: '6acd98942bce0800013a054d',
+      3: '6acd98942bce0800013a054f',
+      4: '6acd98942bce0800013a0550',
+      5: '6acd98952bce0800013a0551',
+      6: '6acd98952bce0800013a0552',
+      7: '6acd98952bce0800013a0556',
+      8: '6acd98952bce0800013a0557',
+      9: '6acd98952bce0800013a0558',
+      10: '6acd98952bce0800013a0559',
+      11: '6acd98952bce0800013a055b',
+      12: '6acd98952bce0800013a055e',
+      13: '6acd98952bce0800013a055f',
+      14: '6acd98952bce0800013a0560',
+      15: '6acd98952bce0800013a0561',
+      16: '6acd98952bce0800013a0563',
+      17: '6acd98952bce0800013a0566',
+      18: '6acd98952bce0800013a0567',
+      19: '6acd98952bce0800013a0568',
+      20: '6acd98952bce0800013a0569',
+      21: '6acd98952bce0800013a056a',
+      22: '6acd98952bce0800013a056c',
+      23: '6acd98952bce0800013a056e',
+      24: '6acd98952bce0800013a0570',
+      25: '6acd98952bce0800013a0571',
+      26: '6acd98952bce0800013a0572',
+      27: '6acd98952bce0800013a0573',
+      28: '6acd98952bce0800013a0575',
+      29: '6acd98952bce0800013a0578',
+      30: '6acd98952bce0800013a0579',
+      31: '6acd98952bce0800013a057a',
+      32: '6acd98952bce0800013a057b',
+      33: '6acd98952bce0800013a057d',
+      34: '6acd98952bce0800013a057f',
+      35: '6acd98952bce0800013a0581',
+      36: '6acd98952bce0800013a0582',
+      37: '6acd98952bce0800013a0583',
+      38: '6acd98952bce0800013a0585',
+      39: '6acd98962bce0800013a0588',
+      40: '6acd98962bce0800013a0589',
+      41: '6acd98962bce0800013a058a',
+      42: '6acd98962bce0800013a058b',
+      43: '6acd98962bce0800013a058d',
+      44: '6acd98962bce0800013a0590',
+      45: '6acd98962bce0800013a0591',
+      46: '6acd98962bce0800013a0592',
+      47: '6acd98962bce0800013a0593',
+      48: '6acd98962bce0800013a0596',
+      49: '6acd98962bce0800013a0598',
+      50: '6acd98962bce0800013a0599',
+      51: '6acd98962bce0800013a059a',
+      52: '6acd98962bce0800013a059d',
+      53: '6acd98962bce0800013a059e',
+      54: '6acd98962bce0800013a05a0',
+      55: '6acd98962bce0800013a05a1',
+      56: '6acd98962bce0800013a05a2',
+      57: '6acd98962bce0800013a05a4',
+      58: '6acd98962bce0800013a05a7',
+      59: '6acd98962bce0800013a05a8',
+      60: '6acd98962bce0800013a05a9'
     }
   };
   const ON_STORE = window.location.hostname === CONFIG.STORE_HOST;
@@ -81,7 +126,7 @@
       copySpec2: '複製規格',
       previewNote: '預覽模式：此頁面不在 SHOPLINE 商店網域內，無法直接加購。嵌入商店後，將自動把「計價單位」以報價金額作為數量加入購物車並前往結帳。',
       checkoutError: '加入購物車失敗，請稍後再試；或按下方「複製訂製規格」聯絡客服下單。',
-      errDims: '請輸入有效的寬、深、高（1–200 cm 的整數）。',
+      errDims: '請輸入有效的寬、深、高（1–100 cm 的整數），單邊尺寸不可超過 100 cm。',
       footer: '定制商品於付款後進入製作，非運損或瑕疵不適用退換貨；所輸入為內尺寸，成品外尺寸會因板厚與燈光配置而增加。'
     },
     zhCN: {
@@ -122,7 +167,7 @@
       copySpec2: '复制规格',
       previewNote: '预览模式：此页面不在 SHOPLINE 商店域名内，无法直接加购。嵌入商店后，将自动把「计价单位」以报价金额作为数量加入购物车并前往结账。',
       checkoutError: '加入购物车失败，请稍后再试；或按下方「复制定制规格」联系客服下单。',
-      errDims: '请输入有效的宽、深、高（1–200 cm 的整数）。',
+      errDims: '请输入有效的宽、深、高（1–100 cm 的整数），单边尺寸不可超过 100 cm。',
       footer: '定制商品于付款后进入制作，非运损或瑕疵不适用退换货；所输入为内尺寸，成品外尺寸会因板厚与灯光配置而增加。'
     },
     en: {
@@ -163,7 +208,7 @@
       copySpec2: 'Copy specs',
       previewNote: 'PREVIEW MODE: this page is not on the SHOPLINE store domain, so add-to-cart is disabled. Once embedded in the store, the pricing unit is added with the quoted amount as quantity and checkout opens automatically.',
       checkoutError: 'Failed to add to cart. Please try again, or use "Copy specs" below and contact us to place the order.',
-      errDims: 'Please enter valid width, depth and height (integers 1–200 cm).',
+      errDims: 'Please enter valid width, depth and height (integers 1–100 cm, max 100 cm per side).',
       footer: 'Custom products go into production after payment and cannot be returned unless damaged or defective. Inputs are inner dimensions; the finished outer size is larger due to panel thickness and lighting.'
     }
   };
@@ -518,7 +563,7 @@
     const powerCard = document.getElementById('aowobox-tb-powercard');
     note.classList.add('tb-hidden');
 
-    const dimsOk = W >= 1 && D >= 1 && H >= 1 && W <= 200 && D <= 200 && H <= 200;
+    const dimsOk = W >= 1 && D >= 1 && H >= 1 && W <= 100 && D <= 100 && H <= 100;
     const fiveOk = FIVE_V_PAIRS.some(([w, d]) => w === W && d === D);
 
     // 同步「配置」卡片高亮
@@ -806,9 +851,9 @@
         })
       });
     }).then(function () {
-      /* 重量登記行：qty=1、規格=預估重量（整數kg，1–30 封頂），
+      /* 重量登記行：qty=1、規格=預估重量（整數kg，1–60 封頂），
          運費依此規格後台設定的重量計算；失敗不影響主流程（靜默略過） */
-      const wKg = Math.min(30, Math.max(1, Math.round(Number(payload.weight) || 0)));
+      const wKg = Math.min(60, Math.max(1, Math.round(Number(payload.weight) || 0)));
       const wVid = CONFIG.WEIGHT_VARIATIONS[wKg];
       if (!CONFIG.WEIGHT_PRODUCT_ID || !wVid) return;
       return cartRequest('/cart/items', {
