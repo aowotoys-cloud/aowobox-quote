@@ -332,23 +332,23 @@
   }
 
   function factoryBase(W, D, H) {
-    const L = W;
+    const L = W; const Wd = D;
     const a = {
-      totalSix: ((L * W) + (L * H) + (W * H)) * 2 * CM2,
-      fourSides: ((W * H) + (L * H)) * 2 * CM2,
-      fiveNoTop: ((W * H * 2) + (L * H * 2) + (L * W)) * CM2,
-      threePanel: (L * H * CM2) + (W * H * CM2 * 2),
-      stripTopBottom: (L + W) * CM * 2,
+      totalSix: ((L * Wd) + (L * H) + (Wd * H)) * 2 * CM2,
+      fourSides: ((Wd * H) + (L * H)) * 2 * CM2,
+      fiveNoTop: ((Wd * H * 2) + (L * H * 2) + (L * Wd)) * CM2,
+      threePanel: (L * H * CM2) + (Wd * H * CM2 * 2),
+      stripTopBottom: (L + Wd) * CM * 2,
       stripBack: (L + H) * CM * 2,
-      areaTopBottom: (L * W * CM2 * 2) + (L * 2 * 2 * CM2) + (W * 2 * 2 * CM2),
+      areaTopBottom: (L * Wd * CM2 * 2) + (L * 2 * 2 * CM2) + (Wd * 2 * 2 * CM2),
       areaBack: (L * H * CM2 * 2) + (L * 2 * 2 * CM2) + (H * 2 * 2 * CM2),
-      frontM2: L * W * CM2
+      frontM2: L * Wd * CM2
     };
     const lightTopBottom = a.areaTopBottom * C.board + a.stripTopBottom * C.light;
     const lightBack = a.areaBack * C.board + a.stripBack * C.light;
     const bodySimple = a.totalSix * C.board;
     // 透明盒：工厂底价固定取「雕刻」列
-    const designCarve = (L * W * CM2) * C.print + (L * H * CM2) * C.print + (L * H * CM2) * C.carve;
+    const designCarve = (L * Wd * CM2) * C.print + (L * H * CM2) * C.print + (L * H * CM2) * C.carve;
     const frontPlate = a.frontM2 * C.boardThin;
     const backThinPanel = (L * H * CM2) * C.boardThin;
     return {
