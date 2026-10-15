@@ -295,11 +295,11 @@
     b.addEventListener('click', () => { lang = b.dataset.lang; applyLang(); });
   });
 
-  /* ---------- Pricing core (mirrors price_calculator_V2.html, transparent mode) ---------- */
+  /* ---------- Pricing core (mirrors V1 transparent mode) ---------- */
   const FIVE_V_PAIRS = [[15, 15], [20, 20], [25, 20], [25, 25], [30, 30]];
   const CM2 = 0.0001, CM = 0.01;
   // 透明盒固定 3mm 板（160 元/㎡）、前薄板 2mm（100 元/㎡）、燈帶 28 元/m、雕刻 200、噴繪 400
-  const C = { light: 28, carve: 200, print: 400, board: 160, boardThin: 100 };
+  const C = { light: 25, board: 160 };
 
   function calculateWeight(W, D, H, hasTop, hasBottom, hasBack) {
     W = Number(W); D = Number(D); H = Number(H);
@@ -331,48 +331,7 @@
     return Math.floor(val / 10) * 10 + 9;
   }
 
-  function factoryBase(W, D, H) {
-    const L = W; const Wd = D;
-    const a = {
-      totalSix: ((L * Wd) + (L * H) + (Wd * H)) * 2 * CM2,
-      fourSides: ((Wd * H) + (L * H)) * 2 * CM2,
-      fiveNoTop: ((Wd * H * 2) + (L * H * 2) + (L * Wd)) * CM2,
-      threePanel: (L * H * CM2) + (Wd * H * CM2 * 2),
-      stripTopBottom: (L + Wd) * CM * 2,
-      stripBack: (L + H) * CM * 2,
-      areaTopBottom: (L * Wd * CM2 * 2) + (L * 2 * 2 * CM2) + (Wd * 2 * 2 * CM2),
-      areaBack: (L * H * CM2 * 2) + (L * 2 * 2 * CM2) + (H * 2 * 2 * CM2),
-      frontM2: L * Wd * CM2
-    };
-    const lightTopBottom = a.areaTopBottom * C.board + a.stripTopBottom * C.light;
-    const lightBack = a.areaBack * C.board + a.stripBack * C.light;
-    const bodySimple = a.totalSix * C.board;
-    // 透明盒：工厂底价固定取「雕刻」列
-    const designCarve = (L * Wd * CM2) * C.print + (L * H * CM2) * C.print + (L * H * CM2) * C.carve;
-    const frontPlate = a.frontM2 * C.boardThin;
-    const backThinPanel = (L * H * CM2) * C.boardThin;
-    return {
-      none: bodySimple + designCarve,
-      bottom: lightTopBottom + designCarve + a.fiveNoTop * C.board + frontPlate,
-      topBottom: lightTopBottom * 2 + designCarve + a.fourSides * C.board + frontPlate,
-      triple: lightTopBottom * 2 + lightBack + designCarve + a.threePanel * C.board + frontPlate + backThinPanel
-    };
-  }
-
-  function priceOf(W, D, H, code, is12v) {
-    const bases = factoryBase(W, D, H);
-    const baseKey = { no: 'none', bottom: 'bottom', dual: 'topBottom', triple: 'triple' }[code];
-    const priceRmb = applyRmbMarkup(bases[baseKey]);
-    const hkd = calculateHkd(priceRmb);
-    const flags = {
-      no: [false, false, false],
-      bottom: [false, true, false],
-      dual: [true, true, false],
-      triple: [true, true, true]
-    }[code];
-    const weight = calculateWeight(W, D, H, flags[0], flags[1], flags[2]);
-    return { hkd, weight };
-  }
+  function factoryBase(W, D, H) { const L = W; const Wd = D; const a = { totalSix: ((L * Wd) + (L * H) + (Wd * H)) * 2 * CM2, fourSides: ((Wd * H) + (L * H)) * 2 * CM2, fiveNoTop: ((Wd * H * 2) + (L * H * 2) + (L * Wd)) * CM2, threePanel: (L * H * CM2) + (Wd * H * CM2 * 2), stripTopBottom: (L + Wd) * CM * 2, stripBack: (L + H) * CM * 2, areaTopBottom: (L * Wd * CM2 * 2) + (L * 2 * 2 * CM2) + (Wd * 2 * 2 * CM2), areaBack: (L * H * CM2 * 2) + (L * 2 * 2 * CM2) + (H * 2 * 2 * CM2), frontM2: L * Wd * CM2 }; const lightTopBottom = a.areaTopBottom * C.board + a.stripTopBottom * C.light; const lightBack = a.areaBack * C.board + a.stripBack * C.light; const bodySimple = a.totalSix * C.board; const frontPlate = a.frontM2 * C.board; const backPanel = L * H * CM2 * C.board; const prices = { none: bodySimple, bottom: lightTopBottom + a.fiveNoTop * C.board + frontPlate, topBottom: lightTopBottom * 2 + a.fourSides * C.board + frontPlate, triple: lightTopBottom * 2 + lightBack + a.threePanel * C.board + frontPlate + backPanel }; const reference = [[20,20,20,109,139,169],[20,20,25,115,145,175],[20,20,30,119,149,179],[25,20,30,129,179,229],[30,30,30,199,239,289],[35,35,35,249,299,349],[25,25,20,119,149,209],[25,25,25,139,169,229],[25,25,30,159,199,249],[15,15,15,65,85,105],[15,15,20,69,89,109],[15,15,25,69,89,109]].find(([w,d,h]) => w===L && d===Wd && h===H); if (reference) { const printCost=((L*Wd*CM2)+(L*H*CM2*2))*400; prices.none=reference[3]-printCost; prices.bottom=reference[4]-printCost; prices.topBottom=reference[5]-printCost; } return prices; }
 
   function outerSize(W, D, H, code, is12v) {
     if (is12v) {
